@@ -1,0 +1,141 @@
+# 315CAb_StanMihai-Catalin
+
+# Mod de functionare
+	Programul are la baza doua structuri de date:
+1. mat - Abreviere pentru matrix, va memora trei variabile
+	1.1 **mat - Un tablou bidimensional, alocat dinamic, in care vor fi
+	memorate valorile matricilor incarcate in program
+	1.2 n - Numarul de linii al matricii **mat
+	1.3 m - Numarul de coloane al matricii **mat
+2. arr - Abreviere pentru array, va memora trei variabila
+	2.1 *arr - Un tablou unidimensional care va memora structuri de tipul mat
+	2.2 used - Numarul curent de matrici incarcate in program
+	2.3 size - Dimensiunea tabloului *arr
+	
+	In main se va initializa tabloul *arr cu 0 matrici si de dimensiune 1.
+	Ulterior se va citi un caracter 'c' care va determina operatia de executat.
+	Intr-o structura repetitiva cu test final am implementat o structura de
+decizie alternativa, care va accesa operatia corespunzatoare caracterului 'c'
+introdus anterior.
+
+# Operatii implementate
+# load
+	Functia de load este apelata la introducerea caracterului 'L' si incarca o
+matrice in vectorul nostru de matrici.
+	Se vor citi dimensiunile matricii 'n' si 'm'. Daca vectorul a atins
+dimensiunea maxima, acesta va fi realocat, iar dimensiunea sa se va dubla.
+	Ideea pentru acest program si structura de date necesara acestuia este
+inspirata dupa articolul de pe ocw din cadrul cursului de structuri de date:
+https://ocw.cs.pub.ro/courses/sd-ca/articole/tutorial-01-1
+
+# determine
+	Functia de determine este apelata la introducerea caracterului 'D'.
+	Aceasta va citi un indice 'k' al matricii cerute si va afisa:
+1. Un mesaj de eroare in cazul in care nu exista o matrice cu indexul dat
+2. Dimensiunile 'n' si 'm' ale matricii in caz contrar
+
+# print
+	Functia de print este apelata la introducerea caracterului 'P'.
+	Functioneaza similar cu functia de determine, dar in locul afisarii
+dimensiunilor unei matrici, aceasta va afisa elementele matricii cerute.
+
+# crop
+	Functia de crop este apelata la introducerea caracterului 'C' si va
+redimensiona o matrice conform cerintei.
+	Aceasta functie va cere mai multi parametrii:
+1. k - Indexul matricii care se doreste a fi redimensionata
+2. l - Numarul de linii al noii matrici
+3. *la - Un tablou unidimensional ce memoreaza indicii liniilor cu ajutorul
+carora se va face redimensionarea
+4. c - Numarul de coloane al noii matrici
+5. *ca - Functioneaza asemeni lui *la, dar e folosit pentru coloane
+	Daca nu exista o matrice cu indicele cerut, se va afisa un mesaj de eroare.
+In caz contrar, vom folosi **tmp (tablou bidimensional alocat dinamic) pentru a
+memora noua matrice redimensionata de dimensiuni 'l' si 'c'.Ulterior matricea
+memorata anterior se va goli si va fi alocata o noua matrice cu dimensiunile
+'l' si 'c'. In final i se vor atribui valorile memorate in **tmp noii matrici.
+
+# free_crop
+	Functie ce primeste ca parametrii vairabilele alocate dinamic in functia
+crop, alaturi de numarul de linii alocate pentru tabloul **tmp, si le
+elibereaza in cazul unei alocari esuate. (Programare defensiva)
+
+# multiply
+	Functia de multiply este apelata la introducerea caracterului 'M' si va
+inmulti doua matrici de pe pozitiile 'k1' si 'k2' in vector.
+	Aceasta functie poate returna
+1. Un mesaj de eroare in cazul in care nu exista matrici pe indicii k1 sau k2
+2. Un alt mesaj de eroare in cazul in care nu se poate efectua inmultirea
+(numarul de coloane al primei matrici nu este egal cu numarul de linii al celei
+de a doua matrici)
+3. O noua matrice, rezultata din inmultirea matricii 'k1' si 'k2' si care va fi
+memorata pe urmatoare pozitie in vector.
+	Asemeni subprogramului de 'crop' se va aloca un tablou bidimensional alocat
+dinamic **tmp, in care se va memora rezultatul noii matrici. Ulterior se va
+aloca spatiu in vector pentru o noua matrice (respectand regula de resize a
+vectorului folosita si in subprogramul de 'load') si i se vor atribui valorile
+matricii rezultate.
+
+# order
+	Functia de order este apelata la introducerea caracterului 'O' si va ordona
+crescator matricile din vector.
+	Aceasta functie are la baza algoritmul de sortare select_sort, care va 
+ordona matricile dupa restul impartirii la 10007 a sumei elementelor matricei.
+	De mentionat este faptul ca functia nu se va apela in cazul in care nu
+exista matrici memorate in vector.
+
+# sum
+	Functia de suma este apelata in cadrul subprogramului de ordonare si va
+calcula restul impartirii la 10007 a sumei tuturor elementelor din matricea
+salvata la pozitia 'k'. In cazul in care restul este unul negativ, se va adauga
+10007 la valoarea actuala.
+
+# transpose
+	Functia de calculare a transpusei este apelata la introducerea caracterului
+'T' si va inlocui matricea de la indecele 'k' cu transpusa acesteia.
+	Daca nu exista o matrice cu indicele cerut, se va afisa un mesaj de eroare.
+In caz contrar, vom folosi **tmp (tablou bidimensional alocat dinamic) pentru a
+memora transpusa matricii de la pozitia 'k'. Ulterior matricea memorata
+anterior se va goli si va fi alocata o noua matrice cu dimensiunile inversate.
+In final i se vor atribui valorile memorate in **tmp noii matrici din vector,
+iar dimensiunile memorate in variabilele 'n' si 'm' vor fi inversate.
+
+# raise_to_power
+	Functia de ridicare la putere este apelata la introducerea caracterului 'R'
+si va inlocui matricea de la indicele 'k' cu aceeasi matrice ridicata la
+puterea 'power'.
+	Functia poate returna
+1. Un mesaj de eroare in cazul in care nu exista o matrice alocata pe pozitia
+ceruta
+2. Un alt mesaj de eroare in cazul in care puterea introdusa este un numar
+negativ
+3. Un al treilea mesaj de eroare in cazul in care matricea de la pozitia 'k'
+nu este patratica
+4. Matricea transformata pe pozitia sa initiala
+	De mentionat este faptul ca mesajele de eroare sunt returnate in ordinea
+prezentata anterior.
+	Pentru acest subprogram vom avea nevoie de matricea unitate 'in' in care se
+va salva rezultatul matricei ridicate la putere. Programul este de complexitate
+logaritmica, puterea fiind injumatatita ori de cate ori este posibil, iar
+puterile impare (respectiv rezultatul final) fiind memorate in locul matricii
+unitate in. In final valorile matricii de pe pozitia 'k' sunt inlocuite de cele
+din matricea in.
+
+# free_but_better
+	Functia de eliberare a unei matrici de pe o pozitie data 'k' este apelata
+la introducerea caracterului 'F'.
+	Functia va elibera matricea de pe pozitia 'k' si va muta toate celelalte
+matrici din vector pe pozitia anterioara. Numarul de matrici curente va fi
+decrementat si ulterior se va verifica inversul conditiei de resize din functia
+de load.
+	In cazul in care numarul de matrici curente este jumatate din numarul de
+spatii alocate in vector, acesta va fi realocat si injumatatit.
+
+# quit
+	Functia de eliberare a tuturor resurselor, apelata prin introducerea
+caracterului 'Q'. Este folosita de asemenea in programarea defensiva pe
+parcursul problemei.
+
+# Cazuri suplimentare
+	In cazul introducerii oricarui alt caracter, se va afisa un mesaj de eroare
+'Unrecognized command' si se va astepta introducerea unei noi comenzi.
